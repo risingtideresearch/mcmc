@@ -13,23 +13,26 @@ const x = model.param()
 const y = model.param()
 
 model.observe(function(params) {
+  const dx = x(params) - 200
+  const dy = y(params) - 200
+  const dist = Math.sqrt(dx*dx + dy*dy)
+
   return {
     dist: "normal",
-    mean: 200,
-    sd: 50,
-    value: x(params)
+    mean: 50,
+    sd: 5,
+    value: dist
   }
 })
 
 model.observe(function(params) {
   return {
     dist: "normal",
-    mean: 200,
-    sd: 10,
+    mean: 250,
+    sd: 50,
     value: y(params)
   }
 })
-
 
 model.draw(function(params, ctx) {
   ctx.beginPath()
@@ -42,13 +45,14 @@ model.draw(function(params, ctx) {
 const canvas = document.querySelector<HTMLCanvasElement>('#canvas')!
 model.initWalkers(10000)
 
-let epochs = 0
+let done = false
 
 function redraw() {
-  if(epochs < 50) {
-    model.drawSamples(canvas, 1000)
+  model.drawSamples(canvas, 1000)
+  if(!done)
     window.setTimeout(redraw, 50)
-    epochs += 1
-  }
 }
 window.setTimeout(redraw, 100)
+window.addEventListener("keydown", function(event) {
+  done = true
+})
