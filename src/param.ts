@@ -19,9 +19,27 @@ export interface BoundedParam {
 export type Param = UnboundedParam | PositiveParam | BoundedParam
 
 export function transform(param: Param, raw: number): number {
-    return raw
+    switch(param.type) {
+        case "unbounded":
+            return raw
+        case "positive":
+            return Math.exp(raw)
+        case "bounded":
+            const ex = Math.exp(raw)
+            const sigmoid = ex / (1.0 + ex)
+            return sigmoid * (param.max - param.min) + param.min
+    }
 }
 
 export function logJacobian(param: Param, raw: number): number {
-    return 0
+    switch(param.type) {
+        case "unbounded":
+            return 0
+        case "positive":
+            return raw
+        case "bounded":
+            const ex = Math.exp(raw)
+            const sigmoid = ex / (1.0 + ex)
+            return Math.log(sigmoid) + Math.log(1.0 - sigmoid)  + Math.log(param.max - param.min)
+    }
 }

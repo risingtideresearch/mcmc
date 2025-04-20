@@ -83,6 +83,8 @@ export class Model {
             const ctx = canvas.getContext("2d")!
             ctx.fillStyle = "white"
             ctx.fillRect(0, 0, 400, 400)
+            ctx.strokeStyle = "black"
+            ctx.strokeRect(0,0,400,400)
             sample(this.walkers, samples).forEach(function(params) {
                 self.drawOn(params, ctx)
             })

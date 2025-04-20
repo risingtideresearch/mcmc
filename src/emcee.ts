@@ -72,6 +72,8 @@ function step(walkers: Walkers, srcIdx: number): boolean {
 }
 
 function accept(walkers: Walkers, oldLogp: number, newLogp: number, z: number): boolean {
+    if(newLogp >= oldLogp)
+        return true
     const adjust = Math.log(z) * (walkers.parameters - 1)
     const q = newLogp - oldLogp + adjust
     return Math.log(Math.random()) < q
