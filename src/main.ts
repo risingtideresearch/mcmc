@@ -1,5 +1,5 @@
 import './style.css'
-import {model} from './examples/chain2ring'
+import {model} from './examples/semiring'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
@@ -14,7 +14,7 @@ model.initWalkers(10000)
 let done = false
 
 function redraw() {
-  model.drawSamples(canvas, 10)
+  model.drawSamples(canvas)
   if(!done)
     window.setTimeout(redraw, 50)
 }

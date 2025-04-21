@@ -21,6 +21,11 @@ export class Model {
     distFns: DistFn[] = []
     canvasFns: CanvasFn[] = []
     walkers?: Walkers
+    samples: number
+
+    constructor(samples: number) {
+        this.samples = samples
+    }
 
     param(): ParamFn {
         const param: UnboundedParam = {
@@ -76,7 +81,7 @@ export class Model {
         })
     }
 
-    drawSamples(canvas: HTMLCanvasElement, samples: number) {
+    drawSamples(canvas: HTMLCanvasElement) {
         const self = this
         if(this.walkers) {
             console.log(steps(this.walkers, 1))
@@ -85,7 +90,7 @@ export class Model {
             ctx.fillRect(0, 0, 400, 400)
             ctx.strokeStyle = "black"
             ctx.strokeRect(0,0,400,400)
-            sample(this.walkers, samples).forEach(function(params) {
+            sample(this.walkers, this.samples).forEach(function(params) {
                 self.drawOn(params, ctx)
             })
         }

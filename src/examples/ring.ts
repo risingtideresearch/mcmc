@@ -1,6 +1,6 @@
 import {Model} from '../model'
 
-export const model = new Model()
+export const model = new Model(1000)
 const x = model.param()
 const y = model.param()
 

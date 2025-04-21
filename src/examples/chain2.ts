@@ -1,6 +1,6 @@
 import {Model} from '../model'
 
-export const model = new Model()
+export const model = new Model(5)
 const angle1 = model.boundedParam(0, 2*Math.PI)
 const angle2 = model.boundedParam(0, 2*Math.PI)
 const length = 100

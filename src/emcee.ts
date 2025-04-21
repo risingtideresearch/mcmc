@@ -105,9 +105,10 @@ export function steps(walkers: Walkers, epochs: number): number {
 export function sample(walkers: Walkers, n: number): Array<Array<number>> {
     const result: Array<Array<number>> = []
     for(let i = 0; i < n; i++) {
+        const idx = randomIndex(walkers)
         const p: Array<number> = []
         for(let j = 0; j < walkers.parameters; j++) {
-            p[j] = walkers.state[(i*(walkers.parameters+1))+j]
+            p[j] = walkers.state[(idx*(walkers.parameters+1))+j]
         }
         result.push(p)
     }
